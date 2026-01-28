@@ -18,9 +18,9 @@ Fluent is distributed as a single-file script, making it incredibly easy to load
 
 To get started, simply execute the following `loadstring`:
 
-\`\`\`lua
+```lua
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
-\`\`\`
+```
 
 The `Fluent` table will be returned, providing access to the library's core function: `Fluent:CreateWindow()`.
 
@@ -43,7 +43,7 @@ Fluent provides a robust set of controls to build complex interfaces.
 
 This example demonstrates the creation of a complete menu using the new Tab system and all available components.
 
-\`\`\`lua
+```lua
 -- 1. Load the library
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
 
@@ -104,7 +104,7 @@ SettingsTab:CreateDropdown({
         print("Theme changed to: " .. selected)
     end
 })
-\`\`\`
+```
 
 ## ⚙️ API Reference
 
