@@ -1,6 +1,5 @@
--- Fluent UI Library v3.0
+-- Fluent UI Library v3.0 - Fixed Version
 -- Premium, Minimal, and Cross-Platform (PC/Mobile)
--- Features: Notifications, Tabs, Smooth Animations, Fixed Toggles, Rounded Sliders
 
 local Fluent = {
     Options = {},
@@ -58,7 +57,7 @@ function Fluent:Notify(config)
     local duration = config.Duration or 5
     
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(1, 0, 0, 0) -- Starts small for animation
+    frame.Size = UDim2.new(1, 0, 0, 0)
     frame.BackgroundColor3 = Fluent.Theme.Main
     frame.ClipsDescendants = true
     frame.Parent = NotifyList
@@ -92,12 +91,10 @@ function Fluent:Notify(config)
     contentLabel.TextYAlignment = Enum.TextYAlignment.Top
     contentLabel.Parent = frame
     
-    -- Auto-size content
     local textHeight = game:GetService("TextService"):GetTextSize(content, 13, Enum.Font.Gotham, Vector2.new(280, math.huge)).Y
     contentLabel.Size = UDim2.new(1, -20, 0, textHeight)
     local targetHeight = textHeight + 40
     
-    -- In animation
     tween(frame, {Size = UDim2.new(1, 0, 0, targetHeight)}, 0.3)
     
     task.delay(duration, function()
