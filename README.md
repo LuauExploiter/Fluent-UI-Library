@@ -17,9 +17,9 @@ Fluent is distributed as a single-file script, making it incredibly easy to load
 
 To get started, simply execute the following `loadstring`:
 
-\`\`\`lua
+```lua
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
-\`\`\`
+```
 
 The `Fluent` table will be returned, providing access to the library's core function: `Fluent:CreateWindow()`.
 
@@ -54,7 +54,7 @@ Fluent uses a dark, high-contrast color palette with a subtle accent color to hi
 
 This example demonstrates the creation of a complete menu with all available components.
 
-\`\`\`lua
+```lua
 -- 1. Load the library
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
 
@@ -110,7 +110,7 @@ Window:CreateTab("Utility Settings")
 -- Example of using the returned control objects:
 -- myToggle:Set(true) -- Programmatically set the toggle to ON
 -- local currentValue = mySlider:Get() -- Get the current slider value
-\`\`\`
+```
 
 ## ⚙️ API Reference
 
