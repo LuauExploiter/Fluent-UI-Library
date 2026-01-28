@@ -206,5 +206,5 @@ This is an open-source project. Contributions, bug reports, and feature suggesti
 
 Fluent is released under the [MIT License]. See the `LICENSE` file for more details.
 
-[CONTRIBUTING.md]: #
-[MIT License]: #
+[CONTRIBUTING.md]: ./CONTRIBUTING.md
+[MIT License]: ./LICENSE
