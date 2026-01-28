@@ -1,4 +1,4 @@
--- Fluent UI Library (Upgraded Version)
+-- Fluent UI Library 
 -- A clean, minimal UI library for Roblox with Tab support and advanced components
 
 local Fluent = {}
