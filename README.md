@@ -9,6 +9,7 @@ Fluent is designed to be easily loaded and executed in a Luau environment using 
 To get started, execute the following line in your environment:
 
 \`\`\`lua
+
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
 \`\`\`
 
