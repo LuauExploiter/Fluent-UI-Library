@@ -1,6 +1,7 @@
 # 🎨 Fluent UI Library
 
 [![Luau UI Library](https://img.shields.io/badge/Language-Luau-blue.svg)](https://luau-lang.org/)
+[![Version](https://img.shields.io/badge/Version-2.0-orange.svg)](#)
 [![Loadstring](https://img.shields.io/badge/Loadstring-Available-brightgreen.svg)](https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua)
 
 ---
@@ -9,7 +10,7 @@
 
 **Fluent** is a clean, minimal, and modern UI library designed specifically for the Luau environment (Roblox). It focuses on delivering a premium user experience through a dark, consistent aesthetic and smooth, responsive interactions.
 
-Every component in Fluent is built with **tweened animations** for hover, active, and state changes, ensuring a polished and professional feel for your in-game menus and tools.
+This upgraded version features a professional **Tab and Page system**, allowing you to organize your tools into multiple categories. Every component in Fluent is built with **tweened animations** for hover, active, and state changes, ensuring a polished and professional feel for your in-game menus and tools.
 
 ## 🚀 Installation
 
@@ -17,9 +18,9 @@ Fluent is distributed as a single-file script, making it incredibly easy to load
 
 To get started, simply execute the following `loadstring`:
 
-```lua
+\`\`\`lua
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
-```
+\`\`\`
 
 The `Fluent` table will be returned, providing access to the library's core function: `Fluent:CreateWindow()`.
 
@@ -30,52 +31,36 @@ Fluent provides a robust set of controls to build complex interfaces.
 | Component | Description | Key Features |
 | :--- | :--- | :--- |
 | **Window** | The main container for your UI. | Draggable, Close/Minimize controls, Custom Title/Size/Position. |
+| **Tab System** | Sidebar navigation for organizing controls. | Independent pages, Animated selection, Scalable for complex menus. |
 | **Button** | A standard, interactive button. | Smooth hover/active state transitions, Callback on click. |
 | **Toggle** | A clean switch for boolean settings. | Animated state change, Accent color for "On" state, State persistence. |
 | **Slider** | Numerical input control. | Drag-to-change value, Displays current value, Supports Min/Max range (integer values). |
 | **Dropdown** | Select one option from a list. | Animated open/close, Option list is dynamically sized, State persistence. |
-| **Tab** | A simple control for navigation. | Used to create sections within the main window. |
-
-## 🎨 Design Philosophy
-
-Fluent uses a dark, high-contrast color palette with a subtle accent color to highlight interactive elements.
-
-| Color Name | RGB Value | Usage |
-| :--- | :--- | :--- |
-| **Background** | `15, 15, 15` | Main window and container background. |
-| **Secondary** | `25, 25, 25` | Default state for buttons and controls. |
-| **Hover** | `35, 35, 35` | Mouse-over state for interactive elements. |
-| **Active** | `20, 20, 20` | Mouse-down state for buttons. |
-| **Accent** | `80, 150, 80` | Highlight color for active states (e.g., Toggle "On" state, Slider fill). |
-| **Text** | `230, 230, 230` | Primary text color. |
-| **Stroke** | `60, 60, 60` | Border/outline color for controls. |
+| **Textbox** | Input field for text. | Placeholder text, Focus lost callback for input handling. |
+| **Label** | Non-interactive text. | Used for section headers, descriptions, or static information. |
 
 ## 📖 Full Usage Example
 
-This example demonstrates the creation of a complete menu with all available components.
+This example demonstrates the creation of a complete menu using the new Tab system and all available components.
 
-```lua
+\`\`\`lua
 -- 1. Load the library
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/LuauExploiter/Fluent-UI-Library/refs/heads/main/Fluent.lua"))()
 
 -- 2. Create the main window
 local Window = Fluent:CreateWindow({
     Title = "Fluent UI Demo",
-    Size = UDim2.new(0, 450, 0, 600),
+    Size = UDim2.new(0, 550, 0, 400) -- Larger size for sidebar layout
 })
 
--- 3. Add components
+-- 3. Create Tabs
+local MainTab = Window:CreateTab("Main Features")
+local SettingsTab = Window:CreateTab("Configuration")
 
--- Simple Button
-Window:CreateButton({
-    Text = "Click Me to Print",
-    Callback = function()
-        print("Button was pressed!")
-    end
-})
+-- 4. Add components to the Main Tab
+MainTab:CreateLabel("--- Automation ---")
 
--- Toggle Switch
-local myToggle = Window:CreateToggle({
+MainTab:CreateToggle({
     Text = "Enable Auto-Farm",
     Default = false,
     Callback = function(state)
@@ -83,38 +68,47 @@ local myToggle = Window:CreateToggle({
     end
 })
 
--- Numerical Slider
-local mySlider = Window:CreateSlider({
-    Text = "Set WalkSpeed (10-100)",
+MainTab:CreateSlider({
+    Text = "Speed Multiplier",
     Min = 10,
     Max = 100,
-    Default = 16,
+    Default = 50,
     Callback = function(value)
-        print("WalkSpeed set to: " .. value)
+        print("Speed set to: " .. value)
     end
 })
 
--- Dropdown Menu
-local myDropdown = Window:CreateDropdown({
-    Text = "Select Server Region",
-    Options = {"North America", "Europe", "Asia"},
-    Default = "North America",
+MainTab:CreateButton({
+    Text = "Execute Action",
+    Callback = function()
+        print("Action executed!")
+    end
+})
+
+-- 5. Add components to the Settings Tab
+SettingsTab:CreateLabel("--- User Input ---")
+
+SettingsTab:CreateTextbox({
+    Placeholder = "Enter Webhook URL...",
+    Default = "https://discord.com/...",
+    Callback = function(text, enterPressed)
+        print("Webhook updated to: " .. text .. " (Enter pressed: " .. tostring(enterPressed) .. ")")
+    end
+})
+
+SettingsTab:CreateDropdown({
+    Text = "Select Theme",
+    Options = {"Dark", "Light", "System"},
+    Default = "Dark",
     Callback = function(selected)
-        print("Region selected: " .. selected)
+        print("Theme changed to: " .. selected)
     end
 })
-
--- Tab (for sectioning)
-Window:CreateTab("Utility Settings")
-
--- Example of using the returned control objects:
--- myToggle:Set(true) -- Programmatically set the toggle to ON
--- local currentValue = mySlider:Get() -- Get the current slider value
-```
+\`\`\`
 
 ## ⚙️ API Reference
 
-### Core Functions
+### Core Function
 
 #### `Fluent:CreateWindow(config)`
 
@@ -123,25 +117,37 @@ Creates the main UI container.
 | Parameter | Type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `config.Title` | `string` | The title text displayed on the window's title bar. | `"Fluent UI"` |
-| `config.Size` | `UDim2` | The size of the main window frame. | `UDim2.new(0, 400, 0, 500)` |
+| `config.Size` | `UDim2` | The size of the main window frame. | `UDim2.new(0, 550, 0, 400)` |
 | `config.Position` | `UDim2` | The initial position of the main window frame. | Centered |
 
-**Returns:** A `Window` object with methods for adding components and managing the window.
+**Returns:** A `Window` object with methods for adding tabs and managing the window.
 
-### Window Component Methods
+### Tab Management
 
-All methods below are called on the returned `Window` object (e.g., `Window:CreateButton(...)`).
+#### `Window:CreateTab(name)`
 
-#### `Window:CreateButton(config)`
+Creates a new tab button in the sidebar and an associated page container.
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | The text displayed on the tab button. |
+
+**Returns:** A `Page` object. All components must be added using methods on this `Page` object.
+
+### Page Component Methods
+
+All component creation methods are called on the returned `Page` object (e.g., `MainTab:CreateButton(...)`).
+
+#### `Page:CreateButton(config)`
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `config.Text` | `string` | The text displayed on the button. |
 | `config.Callback` | `function` | **Required.** Function to execute when the button is clicked. |
 
-**Returns:** Control object with utility methods: `SetText(text)`, `SetVisible(visible)`.
+**Returns:** Control object with utility methods: `SetText(text)`.
 
-#### `Window:CreateToggle(config)`
+#### `Page:CreateToggle(config)`
 
 | Parameter | Type | Description | Default |
 | :--- | :--- | :--- | :--- |
@@ -151,9 +157,9 @@ All methods below are called on the returned `Window` object (e.g., `Window:Crea
 
 **Returns:** Control object with utility methods: `Set(value)`, `Get()`.
 
-#### `Window:CreateSlider(config)`
+#### `Page:CreateSlider(config)`
 
-**Note:** The slider only supports **integer** values, as the source code uses `math.floor` on the calculated value.
+**Note:** The slider only supports **integer** values.
 
 | Parameter | Type | Description | Default |
 | :--- | :--- | :--- | :--- |
@@ -165,24 +171,34 @@ All methods below are called on the returned `Window` object (e.g., `Window:Crea
 
 **Returns:** Control object with utility methods: `Set(val)`, `Get()`.
 
-#### `Window:CreateDropdown(config)`
+#### `Page:CreateDropdown(config)`
 
 | Parameter | Type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `config.Text` | `string` | The label text for the dropdown. | `"Dropdown"` |
 | `config.Options` | `table<string>` | **Required.** A table of strings representing the selectable options. | `nil` |
-| `config.Default` | `string` | The initial selected option. Must be one of the strings in `config.Options`. | First option in `config.Options` |
-| `config.Callback` | `function(selected)` | Function to execute when a new option is selected. `selected` is the chosen string. | `nil` |
+| `config.Default` | `string` | The initial selected option. | First option in `config.Options` |
+| `config.Callback` | `function(selected)` | Function to execute when a new option is selected. | `nil` |
 
-**Returns:** Control object with utility methods: `Set(value)`, `Get()`, `Close()`.
+**Returns:** Control object with utility methods: `Set(value)`, `Get()`.
 
-#### `Window:CreateTab(text)`
+#### `Page:CreateTextbox(config)`
 
-Creates a simple text label/button intended for use as a tab header or section divider.
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `config.Placeholder` | `string` | Text shown when the box is empty. | `"Type here..."` |
+| `config.Default` | `string` | The initial text value. | `""` |
+| `config.Callback` | `function(text, enterPressed)` | Function to execute when the box loses focus. | `nil` |
+
+**Returns:** Control object with utility methods: `Set(text)`, `Get()`.
+
+#### `Page:CreateLabel(text)`
+
+Adds a simple, non-interactive text label.
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
-| `text` | `string` | The text for the tab/section header. |
+| `text` | `string` | The text content of the label. |
 
 **Returns:** Control object with utility methods: `SetText(newText)`.
 
